@@ -20,7 +20,7 @@ Aplikacja liczy cenę według jednego cennika, pokazuje strukturę kosztów i ge
 - cennik w pliku `dane/cennik.json`, edytowalny bez zmiany kodu
 - wykres struktury kosztów
 - oferta PDF dla klienta
-- historia wycen w SQLite i proste statystyki
+- historia wycen w SQLite (plik `dane/historia.db`, tworzony automatycznie) i statystyki: liczba wycen, średnia i łączna wartość, najczęstsze produkty
 - kurs EUR z API NBP (część papierów wyceniana w euro)
 
 ## Jak liczona jest wycena
@@ -57,6 +57,7 @@ wycena-dtp/
         history.py      historia wycen i statystyki
         nbp.py          kurs EUR z API NBP
         money.py        formatowanie kwot (1 234,50 zł)
+        charts.py       wykresy (Plotly)
     tests/              testy jednostkowe (pytest)
 ```
 
@@ -88,5 +89,6 @@ ruff check .
 ## Status
 
 Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami, interfejs z wykresem kosztów,
-oferta PDF.
-Kolejne etapy: historia, API NBP, dokumentacja.
+oferta PDF,
+historia wycen ze statystykami.
+Kolejne etapy: API NBP, dokumentacja.
