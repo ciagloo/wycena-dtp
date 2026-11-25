@@ -1,5 +1,7 @@
 # Wycena DTP
 
+![Testy](https://github.com/ciagloo/wycena-dtp/actions/workflows/testy.yml/badge.svg)
+
 Aplikacja do wyceny zleceń poligraficznych i generowania ofert dla małego studia DTP.
 
 Projekt zaliczeniowy z przedmiotu **Advanced Python for Business** (prowadzący: mgr Piotr Żmijewski),
@@ -21,7 +23,7 @@ Aplikacja liczy cenę według jednego cennika, pokazuje strukturę kosztów i ge
 - wykres struktury kosztów
 - oferta PDF dla klienta
 - historia wycen w SQLite (plik `dane/historia.db`, tworzony automatycznie) i statystyki: liczba wycen, średnia i łączna wartość, najczęstsze produkty
-- kurs EUR z API NBP (część papierów wyceniana w euro)
+- aktualny kurs EUR z API NBP (część papierów wyceniana w euro), z kursem awaryjnym z cennika, gdy API nie odpowiada
 
 ## Jak liczona jest wycena
 
@@ -29,7 +31,7 @@ Model zakłada druk cyfrowy na arkuszach SRA3 (320 x 450 mm).
 
 1. **Arkusze**: nakład x liczba stron / (użytki na arkuszu x liczba zadrukowanych stron arkusza),
    w górę do pełnego arkusza, plus naddatek 5% na odpady.
-2. **Papier**: arkusze x cena arkusza (papiery w EUR przeliczane po kursie NBP).
+2. **Papier**: arkusze x cena arkusza (papiery w EUR przeliczane po kursie średnim NBP).
 3. **Druk**: arkusze x stawka za kolor z progu ilościowego + opłata za przygotowanie zlecenia.
 4. **Oprawa**: nakład x stawka za egzemplarz.
 5. **Uszlachetnienia**: arkusze x stawka (w publikacji oprawionej tylko okładka) + przygotowanie.
@@ -59,6 +61,8 @@ wycena-dtp/
         money.py        formatowanie kwot (1 234,50 zł)
         charts.py       wykresy (Plotly)
     tests/              testy jednostkowe (pytest)
+    .github/workflows/  automatyczne testy na GitHubie (CI)
+    Dockerfile          uruchomienie w kontenerze Docker
 ```
 
 ## Instalacja (Windows, PowerShell)
@@ -86,9 +90,16 @@ python -m pytest
 ruff check .
 ```
 
+## Uruchomienie w Dockerze (opcjonalnie)
+
+```
+docker build -t wycena-dtp .
+docker run -p 8501:8501 wycena-dtp
+```
+
 ## Status
 
 Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami, interfejs z wykresem kosztów,
 oferta PDF,
-historia wycen ze statystykami.
-Kolejne etapy: API NBP, dokumentacja.
+historia wycen ze statystykami, kurs EUR z API NBP, CI i Docker.
+Kolejny etap: dokumentacja końcowa.

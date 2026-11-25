@@ -1,0 +1,7 @@
+# Jednolite końce linii (LF) we wszystkich plikach tekstowych, niezależnie od systemu.
+* text=auto eol=lf
+
+# Pliki binarne: Git nie zmienia ich zawartości.
+*.ttf binary
+*.png binary
+*.pdf binary

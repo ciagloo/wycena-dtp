@@ -1,0 +1,27 @@
+# GitHub Actions: po każdym git push GitHub uruchamia linter i testy na czystej maszynie.
+name: Testy
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  testy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobranie kodu z repozytorium
+        uses: actions/checkout@v4
+
+      - name: Instalacja Pythona
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalacja bibliotek
+        run: pip install -r requirements.txt
+
+      - name: Linter (ruff)
+        run: ruff check .
+
+      - name: Testy (pytest)
+        run: python -m pytest

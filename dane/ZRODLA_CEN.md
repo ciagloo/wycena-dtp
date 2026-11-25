@@ -74,7 +74,7 @@ ksiazki-historia.pl od 25. Średnia: **35,50 zł**.
 | naddatek | 5% | zapas arkuszy na próby i odpady przy druku cyfrowym |
 | marża | 30% | założenie do edycji w cenniku |
 | VAT | 23% | stawka podstawowa |
-| kurs EUR awaryjny | 4,25 zł | używany tylko, gdy API NBP nie odpowiada |
+| kurs EUR awaryjny | 4,46 zł | kurs średni NBP z 24.11.2026 (4,4633 zł); używany tylko, gdy API NBP nie odpowiada |
 
 Liczbę użytków na arkuszu SRA3 przyjęto według standardowej impozycji ze spadami:
 A3: 1, A4: 2, A5: 4, A6: 8, DL: 6, wizytówka 90 x 50 mm: 21.

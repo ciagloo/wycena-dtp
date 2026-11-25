@@ -11,6 +11,7 @@ import streamlit as st
 from wycena.charts import wykres_kosztow, wykres_produktow
 from wycena.history import statystyki, wczytaj_historie, zapisz_wycene
 from wycena.money import format_zl
+from wycena.nbp import KursEur, pobierz_kurs_eur
 from wycena.offer_pdf import generuj_oferte
 from wycena.price_list import wczytaj_cennik
 from wycena.pricing import Zlecenie, wycen
@@ -20,6 +21,18 @@ st.title("Wycena DTP")
 st.caption("Wycena zleceń poligraficznych według cennika studia. Druk cyfrowy, arkusz SRA3.")
 
 cennik = wczytaj_cennik()
+
+
+@st.cache_data(ttl=3600)
+def kurs_eur(kurs_awaryjny: float) -> KursEur:
+    """Kurs z NBP zapamiętany na godzinę (ttl=3600 s).
+
+    Bez tego aplikacja pytałaby NBP przy każdej zmianie w formularzu.
+    """
+    return pobierz_kurs_eur(kurs_awaryjny)
+
+
+kurs = kurs_eur(cennik["kurs_eur_awaryjny"])
 
 # Listy opcji bierzemy z cennika, więc nowa pozycja w cenniku od razu pojawi się w formularzu.
 # W progach druku pomijamy klucz "od_arkuszy", bo to granica progu, a nie kolor.
@@ -82,7 +95,7 @@ zlecenie = Zlecenie(
 # Prawa kolumna: wynik wyceny
 with kolumna_wynik:
     try:
-        wynik = wycen(zlecenie, cennik)
+        wynik = wycen(zlecenie, cennik, kurs_eur=kurs.wartosc)
     except ValueError as blad:
         # Błędne dane (np. oprawa przy 6 stronach) pokazujemy jako komunikat zamiast awarii.
         st.error(str(blad))
@@ -94,9 +107,14 @@ with kolumna_wynik:
         cena_1.metric("Cena netto", format_zl(wynik.cena_netto))
         cena_2.metric("Cena brutto", format_zl(wynik.cena_brutto))
         cena_3.metric("Za sztukę netto", format_zl(wynik.cena_netto_za_sztuke))
+        if kurs.zrodlo == "NBP":
+            opis_kursu = f"kurs średni NBP z {kurs.data}"
+        else:
+            opis_kursu = "kurs awaryjny z cennika, API NBP niedostępne"
+        kurs_tekst = f"{kurs.wartosc:.4f}".replace(".", ",")
         st.caption(
             f"Arkusze SRA3 do druku: {wynik.arkusze} (z naddatkiem). "
-            f"Kurs EUR: {format_zl(cennik['kurs_eur_awaryjny'])} (kurs z cennika)."
+            f"Kurs EUR: {kurs_tekst} zł ({opis_kursu})."
         )
 
         st.plotly_chart(wykres_kosztow(wynik.koszty, wynik.koszt_wlasny), width="stretch")
