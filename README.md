@@ -8,6 +8,8 @@ Projekt zaliczeniowy z przedmiotu **Advanced Python for Business** (prowadzący:
 Uczelnia Łazarskiego, Zarządzanie, specjalność AI w biznesie.
 Autor: Jakub Ciągło.
 
+Pełna dokumentacja: [docs/DOKUMENTACJA.md](docs/DOKUMENTACJA.md)
+
 ## Problem
 
 W małym studiu DTP wyceny zleceń (papier, druk, oprawa, uszlachetnienia, skład) przygotowuje się ręcznie.
@@ -70,6 +72,8 @@ wycena-dtp/
 Wymagany Python 3.10 lub nowszy.
 
 ```
+git clone https://github.com/ciagloo/wycena-dtp.git
+cd wycena-dtp
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -96,10 +100,3 @@ ruff check .
 docker build -t wycena-dtp .
 docker run -p 8501:8501 wycena-dtp
 ```
-
-## Status
-
-Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami, interfejs z wykresem kosztów,
-oferta PDF,
-historia wycen ze statystykami, kurs EUR z API NBP, CI i Docker.
-Kolejny etap: dokumentacja końcowa.
