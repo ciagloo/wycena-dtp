@@ -1,0 +1,16 @@
+# Środowisko wirtualne Pythona (każdy tworzy je u siebie)
+.venv/
+
+# Pliki tymczasowe tworzone przez Pythona i narzędzia
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Dane tworzone przez aplikację podczas pracy
+dane/historia.db
+oferty/
+
+# Pliki systemowe
+Thumbs.db
+.DS_Store
