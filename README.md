@@ -14,7 +14,8 @@ Aplikacja liczy cenę według jednego cennika, pokazuje strukturę kosztów i ge
 
 ## Funkcje
 
-- formularz zlecenia: rodzaj publikacji, format, liczba stron, nakład, papier, kolor, oprawa, uszlachetnienia
+- formularz zlecenia: rodzaj publikacji (z typowymi parametrami), format, liczba stron, nakład, papier, kolor, oprawa, uszlachetnienia
+- kontrola wykonalności, np. zakres stron dla danej oprawy
 - silnik wyceny: koszt papieru, druku, oprawy, uszlachetnień i składu, marża, cena netto, brutto i za sztukę
 - cennik w pliku `dane/cennik.json`, edytowalny bez zmiany kodu
 - wykres struktury kosztów
@@ -43,10 +44,12 @@ Stawki pochodzą z pliku `dane/cennik.json`. Źródła i sposób uśrednienia op
 wycena-dtp/
     app.py              interfejs użytkownika (Streamlit)
     requirements.txt    lista bibliotek
+    pyproject.toml      ustawienia lintera ruff i pytest
     dane/
         cennik.json                 stawki (edytowalne bez zmiany kodu)
         przykladowe_zlecenia.json   zlecenia do demo i testów
         ZRODLA_CEN.md               źródła stawek
+        fonty/                      font Fira Sans (licencja OFL) do oferty PDF
     wycena/             logika aplikacji
         pricing.py      silnik wyceny
         price_list.py   wczytanie cennika
@@ -75,13 +78,15 @@ streamlit run app.py
 
 Aplikacja otworzy się w przeglądarce pod adresem http://localhost:8501.
 
-## Testy
+## Testy i jakość kodu
 
 ```
 python -m pytest
+ruff check .
 ```
 
 ## Status
 
-Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami, interfejs z wykresem kosztów.
-Kolejne etapy: oferta PDF, historia, API NBP, dokumentacja.
+Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami, interfejs z wykresem kosztów,
+oferta PDF.
+Kolejne etapy: historia, API NBP, dokumentacja.

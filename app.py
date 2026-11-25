@@ -10,6 +10,7 @@ import plotly.express as px
 import streamlit as st
 
 from wycena.money import format_zl
+from wycena.offer_pdf import generuj_oferte
 from wycena.price_list import wczytaj_cennik
 from wycena.pricing import Zlecenie, wycen
 
@@ -27,19 +28,44 @@ kolory = [klucz for klucz in cennik["druk_za_arkusz"][0] if klucz != "od_arkuszy
 
 kolumna_formularz, kolumna_wynik = st.columns([1, 1.6], gap="large")
 
+
+def lista_wyboru(etykieta: str, opcje: list[str], domyslna: str, produkt: str) -> str:
+    """Pole wyboru z wartością domyślną zależną od rodzaju publikacji.
+
+    Streamlit zapamiętuje wartość pola po jego kluczu (key). Klucz zawiera nazwę produktu,
+    więc po zmianie produktu pole startuje od nowa z domyślną wartością tego produktu.
+    """
+    return st.selectbox(etykieta, opcje, index=opcje.index(domyslna), key=f"{etykieta}_{produkt}")
+
+
 # Lewa kolumna: parametry zlecenia
 with kolumna_formularz:
     st.subheader("Parametry zlecenia")
-    produkt = st.selectbox("Rodzaj publikacji", cennik["produkty"])
-    formaty = list(cennik["uzytki_na_arkuszu"])
-    format_ = st.selectbox("Format", formaty, index=formaty.index("A5"))
-    liczba_stron = st.number_input("Liczba stron", min_value=1, value=2, step=1)
-    naklad = st.number_input("Nakład (egz.)", min_value=1, value=500, step=50)
-    papier = st.selectbox("Papier", list(cennik["papiery"]))
-    kolor = st.selectbox("Kolor druku", kolory)
-    oprawa = st.selectbox("Oprawa", list(cennik["oprawy_za_egzemplarz"]))
-    uszlachetnienie = st.selectbox("Uszlachetnienie", list(cennik["uszlachetnienia"]))
+    produkt = st.selectbox("Rodzaj publikacji", list(cennik["produkty"]))
+    # Typowe parametry wybranego produktu z cennika, np. książka: A5, 160 stron, klejona.
+    domyslne = cennik["produkty"][produkt]
+
+    format_ = lista_wyboru("Format", list(cennik["uzytki_na_arkuszu"]), domyslne["format"], produkt)
+    liczba_stron = st.number_input(
+        "Liczba stron",
+        min_value=1,
+        value=domyslne["liczba_stron"],
+        step=1,
+        key=f"strony_{produkt}",
+    )
+    naklad = st.number_input(
+        "Nakład (egz.)", min_value=1, value=domyslne["naklad"], step=50, key=f"naklad_{produkt}"
+    )
+    papier = lista_wyboru("Papier", list(cennik["papiery"]), domyslne["papier"], produkt)
+    kolor = lista_wyboru("Kolor druku", kolory, domyslne["kolor"], produkt)
+    oprawa = lista_wyboru(
+        "Oprawa", list(cennik["oprawy_za_egzemplarz"]), domyslne["oprawa"], produkt
+    )
+    uszlachetnienie = lista_wyboru(
+        "Uszlachetnienie", list(cennik["uszlachetnienia"]), domyslne["uszlachetnienie"], produkt
+    )
     sklad = st.checkbox("Skład wykonuje studio", value=True)
+    klient = st.text_input("Klient (do oferty, opcjonalnie)")
 
 zlecenie = Zlecenie(
     produkt=produkt,
@@ -96,7 +122,7 @@ with kolumna_wynik:
     koszty = koszty[koszty["Kwota"] > 0].sort_values("Kwota")
     koszty["Udział"] = koszty["Kwota"] / wynik.koszt_wlasny * 100
     koszty["Opis"] = [
-        f"{format_zl(k)} ({u:.0f}%)" for k, u in zip(koszty["Kwota"], koszty["Udział"])
+        f"{format_zl(k)} ({u:.0f}%)" for k, u in zip(koszty["Kwota"], koszty["Udział"], strict=True)
     ]
 
     wykres = px.bar(
@@ -125,3 +151,20 @@ with kolumna_wynik:
     st.plotly_chart(wykres, width="stretch")
 
     st.dataframe(tabela, hide_index=True, width="stretch")
+
+    # Oferta PDF dla klienta: tylko parametry i cena, bez kosztów wewnętrznych i marży.
+    oferta = generuj_oferte(
+        zlecenie,
+        wynik,
+        studio=cennik["studio"],
+        vat_procent=cennik["vat_procent"],
+        dni_waznosci=cennik["waznosc_oferty_dni"],
+        klient=klient,
+    )
+    st.download_button(
+        "Pobierz ofertę PDF",
+        data=oferta,
+        file_name=f"oferta_{zlecenie.produkt}_{zlecenie.naklad}szt.pdf",
+        mime="application/pdf",
+        type="primary",
+    )

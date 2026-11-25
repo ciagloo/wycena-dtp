@@ -46,6 +46,14 @@ Papiery DCP kupowane są u dystrybutora z cenami w euro, dlatego aplikacja przel
 | klejona | fabryka-kopii.pl 6,50; printprint.pl 5,00; gutenberg-drukarnia.pl 5,69; drukarniapro.pl 0,85 | 4,51 |
 | szyta nićmi | klejona + średnia dopłata za szycie: drukujsam.pl 0,73; drukksiazek24.pl 0,64 | 5,20 |
 
+## Zakres stron dla opraw
+
+| Oprawa | Źródła | Przyjęto |
+| --- | --- | --- |
+| zszywka | sowadruk.pl 8-120 stron; drukksiazek.pl 8-80 stron | 8-100 |
+| klejona | drukksiazek24.pl (oprawa miękka) 32-800 stron | 32-800 |
+| szyta nićmi | drukksiazek24.pl (szyto-klejona) 48-800 stron | 48-800 |
+
 ## Uszlachetnienia (zł za arkusz SRA3, jedna strona)
 
 | Uszlachetnienie | Źródła | Średnia |

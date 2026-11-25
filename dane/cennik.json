@@ -6,8 +6,23 @@
   "naddatek_procent": 5,
   "przygotowanie_zlecenia": 30.0,
   "kurs_eur_awaryjny": 4.25,
+  "waznosc_oferty_dni": 14,
+  "studio": {
+    "nazwa": "XYZ",
+    "adres": "ul. Przykładowa 1, 00-001 Warszawa",
+    "email": "kontakt@xyz.example",
+    "telefon": "000 000 000"
+  },
   "sklad_za_strone": 35.5,
-  "produkty": ["ulotka", "plakat", "wizytówki", "folder", "broszura", "katalog", "książka"],
+  "produkty": {
+    "ulotka": {"format": "A5", "liczba_stron": 2, "naklad": 500, "papier": "kreda 130 g", "kolor": "4+4", "oprawa": "brak", "uszlachetnienie": "brak"},
+    "plakat": {"format": "A3", "liczba_stron": 1, "naklad": 50, "papier": "kreda 170 g", "kolor": "4+0", "oprawa": "brak", "uszlachetnienie": "brak"},
+    "wizytówki": {"format": "wizytówka 90x50", "liczba_stron": 2, "naklad": 250, "papier": "kreda 350 g", "kolor": "4+4", "oprawa": "brak", "uszlachetnienie": "folia mat/błysk"},
+    "folder": {"format": "A4", "liczba_stron": 2, "naklad": 300, "papier": "kreda 170 g", "kolor": "4+4", "oprawa": "brak", "uszlachetnienie": "brak"},
+    "broszura": {"format": "A5", "liczba_stron": 16, "naklad": 200, "papier": "kreda 130 g", "kolor": "4+4", "oprawa": "zszywka", "uszlachetnienie": "brak"},
+    "katalog": {"format": "A4", "liczba_stron": 24, "naklad": 300, "papier": "kreda 170 g", "kolor": "4+4", "oprawa": "zszywka", "uszlachetnienie": "folia mat/błysk"},
+    "książka": {"format": "A5", "liczba_stron": 160, "naklad": 100, "papier": "offset 80 g", "kolor": "1+1", "oprawa": "klejona", "uszlachetnienie": "brak"}
+  },
   "uzytki_na_arkuszu": {
     "A3": 1,
     "A4": 2,
@@ -35,6 +50,11 @@
     "zszywka": 0.15,
     "klejona": 4.51,
     "szyta nićmi": 5.20
+  },
+  "limity_stron_oprawy": {
+    "zszywka": {"min": 8, "max": 100},
+    "klejona": {"min": 32, "max": 800},
+    "szyta nićmi": {"min": 48, "max": 800}
   },
   "uszlachetnienia": {
     "brak": {"za_arkusz": 0.0, "przygotowanie": 0.0},

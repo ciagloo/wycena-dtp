@@ -106,6 +106,13 @@ def sprawdz_zlecenie(zlecenie: Zlecenie, cennik: dict) -> None:
     if zlecenie.oprawa != "brak" and zlecenie.liczba_stron % 4 != 0:
         raise ValueError("Przy oprawie liczba stron musi być wielokrotnością 4.")
 
+    # Każda oprawa ma techniczny zakres stron, np. zszywka nie połączy 300 stron.
+    limity = cennik["limity_stron_oprawy"].get(zlecenie.oprawa)
+    if limity and not limity["min"] <= zlecenie.liczba_stron <= limity["max"]:
+        raise ValueError(
+            f"Oprawa „{zlecenie.oprawa}” obsługuje od {limity['min']} do {limity['max']} stron."
+        )
+
 
 def wycen(zlecenie: Zlecenie, cennik: dict, kurs_eur: float | None = None) -> Wycena:
     """Liczy pełną wycenę zlecenia według cennika.

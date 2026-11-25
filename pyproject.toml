@@ -1,0 +1,11 @@
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# E, W: styl PEP 8; F: błędy logiczne (np. nieużywane importy);
+# I: kolejność importów; UP: nowoczesna składnia Pythona; B: typowe pułapki.
+select = ["E", "W", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

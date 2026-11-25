@@ -24,6 +24,7 @@ WYMAGANE_KLUCZE = [
     "papiery",
     "druk_za_arkusz",
     "oprawy_za_egzemplarz",
+    "limity_stron_oprawy",
     "uszlachetnienia",
 ]
 

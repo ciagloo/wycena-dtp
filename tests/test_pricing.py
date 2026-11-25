@@ -34,6 +34,7 @@ def cennik_testowy() -> dict:
         },
         "druk_za_arkusz": [{"od_arkuszy": 1, "4+4": 2.00, "4+0": 1.00}],
         "oprawy_za_egzemplarz": {"brak": 0.0, "zszywka": 0.20},
+        "limity_stron_oprawy": {"zszywka": {"min": 8, "max": 100}},
         "uszlachetnienia": {
             "brak": {"za_arkusz": 0.0, "przygotowanie": 0.0},
             "folia": {"za_arkusz": 1.00, "przygotowanie": 0.0},
@@ -187,6 +188,35 @@ def test_blad_oprawa_bez_wielokrotnosci_4(cennik_testowy):
         oprawa="zszywka",
     )
     with pytest.raises(ValueError, match="wielokrotnością 4"):
+        wycen(zlecenie, cennik_testowy)
+
+
+def test_blad_za_duzo_stron_dla_zszywki(cennik_testowy):
+    # Katalog 348 stron nie da się połączyć zszywką (limit 100 stron).
+    zlecenie = Zlecenie(
+        produkt="katalog",
+        format="A4",
+        liczba_stron=348,
+        naklad=120,
+        papier="kreda",
+        kolor="4+4",
+        oprawa="zszywka",
+    )
+    with pytest.raises(ValueError, match="od 8 do 100 stron"):
+        wycen(zlecenie, cennik_testowy)
+
+
+def test_blad_za_malo_stron_dla_zszywki(cennik_testowy):
+    zlecenie = Zlecenie(
+        produkt="broszura",
+        format="A5",
+        liczba_stron=4,
+        naklad=100,
+        papier="kreda",
+        kolor="4+4",
+        oprawa="zszywka",
+    )
+    with pytest.raises(ValueError, match="od 8 do 100 stron"):
         wycen(zlecenie, cennik_testowy)
 
 
