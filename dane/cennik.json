@@ -1,0 +1,44 @@
+{
+  "opis": "Przykładowy cennik studia DTP. Stawki netto w PLN, uśrednione z publicznych cenników (szczegóły w pliku ZRODLA_CEN.md).",
+  "arkusz_drukarski": "SRA3 (320 x 450 mm)",
+  "marza_procent": 30,
+  "vat_procent": 23,
+  "naddatek_procent": 5,
+  "przygotowanie_zlecenia": 30.0,
+  "kurs_eur_awaryjny": 4.25,
+  "sklad_za_strone": 35.5,
+  "produkty": ["ulotka", "plakat", "wizytówki", "folder", "broszura", "katalog", "książka"],
+  "uzytki_na_arkuszu": {
+    "A3": 1,
+    "A4": 2,
+    "A5": 4,
+    "A6": 8,
+    "DL": 6,
+    "wizytówka 90x50": 21
+  },
+  "papiery": {
+    "offset 80 g": {"cena_arkusza": 0.29, "waluta": "PLN"},
+    "kreda 130 g": {"cena_arkusza": 0.28, "waluta": "PLN"},
+    "kreda 170 g": {"cena_arkusza": 0.40, "waluta": "PLN"},
+    "kreda 300 g": {"cena_arkusza": 0.58, "waluta": "PLN"},
+    "kreda 350 g": {"cena_arkusza": 0.92, "waluta": "PLN"},
+    "Clairefontaine DCP 160 g": {"cena_arkusza": 0.09, "waluta": "EUR"},
+    "Clairefontaine DCP 250 g": {"cena_arkusza": 0.16, "waluta": "EUR"}
+  },
+  "druk_za_arkusz": [
+    {"od_arkuszy": 1, "4+4": 5.45, "4+0": 2.67, "1+1": 1.33, "1+0": 0.70},
+    {"od_arkuszy": 100, "4+4": 4.90, "4+0": 2.27, "1+1": 1.23, "1+0": 0.65},
+    {"od_arkuszy": 500, "4+4": 1.85, "4+0": 1.03, "1+1": 0.79, "1+0": 0.43}
+  ],
+  "oprawy_za_egzemplarz": {
+    "brak": 0.0,
+    "zszywka": 0.15,
+    "klejona": 4.51,
+    "szyta nićmi": 5.20
+  },
+  "uszlachetnienia": {
+    "brak": {"za_arkusz": 0.0, "przygotowanie": 0.0},
+    "folia mat/błysk": {"za_arkusz": 1.35, "przygotowanie": 0.0},
+    "lakier UV wybiórczy": {"za_arkusz": 0.60, "przygotowanie": 100.0}
+  }
+}

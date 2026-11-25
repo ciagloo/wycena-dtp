@@ -22,13 +22,31 @@ Aplikacja liczy cenę według jednego cennika, pokazuje strukturę kosztów i ge
 - historia wycen w SQLite i proste statystyki
 - kurs EUR z API NBP (część papierów wyceniana w euro)
 
+## Jak liczona jest wycena
+
+Model zakłada druk cyfrowy na arkuszach SRA3 (320 x 450 mm).
+
+1. **Arkusze**: nakład x liczba stron / (użytki na arkuszu x liczba zadrukowanych stron arkusza),
+   w górę do pełnego arkusza, plus naddatek 5% na odpady.
+2. **Papier**: arkusze x cena arkusza (papiery w EUR przeliczane po kursie NBP).
+3. **Druk**: arkusze x stawka za kolor z progu ilościowego + opłata za przygotowanie zlecenia.
+4. **Oprawa**: nakład x stawka za egzemplarz.
+5. **Uszlachetnienia**: arkusze x stawka (w publikacji oprawionej tylko okładka) + przygotowanie.
+6. **Skład**: liczba stron x stawka za stronę.
+7. **Cena**: koszt własny + marża = netto; netto + VAT = brutto; cena za sztukę = cena / nakład.
+
+Stawki pochodzą z pliku `dane/cennik.json`. Źródła i sposób uśrednienia opisuje `dane/ZRODLA_CEN.md`.
+
 ## Struktura projektu
 
 ```
 wycena-dtp/
     app.py              interfejs użytkownika (Streamlit)
     requirements.txt    lista bibliotek
-    dane/               cennik i dane przykładowe
+    dane/
+        cennik.json                 stawki (edytowalne bez zmiany kodu)
+        przykladowe_zlecenia.json   zlecenia do demo i testów
+        ZRODLA_CEN.md               źródła stawek
     wycena/             logika aplikacji
         pricing.py      silnik wyceny
         price_list.py   wczytanie cennika
@@ -64,4 +82,5 @@ python -m pytest
 
 ## Status
 
-Projekt w budowie. Kolejne etapy: silnik wyceny z testami, interfejs, oferta PDF, historia, API NBP, dokumentacja.
+Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami.
+Kolejne etapy: interfejs, oferta PDF, historia, API NBP, dokumentacja.

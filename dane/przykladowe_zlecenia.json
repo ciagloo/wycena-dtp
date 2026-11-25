@@ -1,0 +1,13 @@
+[
+  {"produkt": "ulotka", "format": "A5", "liczba_stron": 2, "naklad": 500, "papier": "kreda 130 g", "kolor": "4+4"},
+  {"produkt": "ulotka", "format": "DL", "liczba_stron": 1, "naklad": 1000, "papier": "kreda 170 g", "kolor": "4+0", "sklad": false},
+  {"produkt": "plakat", "format": "A3", "liczba_stron": 1, "naklad": 50, "papier": "kreda 170 g", "kolor": "4+0"},
+  {"produkt": "wizytówki", "format": "wizytówka 90x50", "liczba_stron": 2, "naklad": 250, "papier": "kreda 350 g", "kolor": "4+4", "uszlachetnienie": "folia mat/błysk"},
+  {"produkt": "wizytówki", "format": "wizytówka 90x50", "liczba_stron": 2, "naklad": 500, "papier": "Clairefontaine DCP 250 g", "kolor": "4+4", "uszlachetnienie": "lakier UV wybiórczy", "sklad": false},
+  {"produkt": "folder", "format": "A4", "liczba_stron": 2, "naklad": 300, "papier": "kreda 170 g", "kolor": "4+4"},
+  {"produkt": "broszura", "format": "A5", "liczba_stron": 16, "naklad": 200, "papier": "kreda 130 g", "kolor": "4+4", "oprawa": "zszywka"},
+  {"produkt": "katalog", "format": "A4", "liczba_stron": 24, "naklad": 300, "papier": "kreda 170 g", "kolor": "4+4", "oprawa": "zszywka", "uszlachetnienie": "folia mat/błysk"},
+  {"produkt": "katalog", "format": "A4", "liczba_stron": 48, "naklad": 150, "papier": "kreda 130 g", "kolor": "4+4", "oprawa": "klejona", "uszlachetnienie": "folia mat/błysk"},
+  {"produkt": "książka", "format": "A5", "liczba_stron": 160, "naklad": 100, "papier": "offset 80 g", "kolor": "1+1", "oprawa": "klejona", "sklad": false},
+  {"produkt": "książka", "format": "A5", "liczba_stron": 96, "naklad": 50, "papier": "Clairefontaine DCP 160 g", "kolor": "4+4", "oprawa": "szyta nićmi", "uszlachetnienie": "folia mat/błysk", "sklad": false}
+]
