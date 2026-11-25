@@ -53,6 +53,7 @@ wycena-dtp/
         offer_pdf.py    generowanie oferty PDF
         history.py      historia wycen i statystyki
         nbp.py          kurs EUR z API NBP
+        money.py        formatowanie kwot (1 234,50 zł)
     tests/              testy jednostkowe (pytest)
 ```
 
@@ -82,5 +83,5 @@ python -m pytest
 
 ## Status
 
-Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami.
-Kolejne etapy: interfejs, oferta PDF, historia, API NBP, dokumentacja.
+Projekt w budowie. Gotowe: struktura projektu, cennik, silnik wyceny z testami, interfejs z wykresem kosztów.
+Kolejne etapy: oferta PDF, historia, API NBP, dokumentacja.
